@@ -1,5 +1,7 @@
 import './App.css';
-import UserRegistration from './components/user-registration/UserRegistration';
+import ListFiles from './components/files/ListFiles';
+import ListUsers from './components/users/ListUsers';
+import UserRegistration from './components/users/UserRegistration';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 function App() {
@@ -9,6 +11,12 @@ function App() {
     path:"/",
     element: <UserRegistration/>
 
+  },{
+    path: '/users',
+    element: <ListUsers/>
+  },{
+    path: '/files',
+    element: <ListFiles/>,
   }])
   return (
     <div className="App">

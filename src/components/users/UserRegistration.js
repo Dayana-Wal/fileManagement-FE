@@ -1,23 +1,28 @@
 import axios from "axios";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 function UserRegistration() {
   const {register, handleSubmit} = useForm()
-
+	const [message, setMessage] = useState('');
+	const navigate = useNavigate()
   //handling onSubmit
   const onSubmit = async (userObj) => {
-	let user = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/users`, userObj)
-	if(user.status === 201){
-		//Will navigate to another page related to files
-		console.log('User Created')
-	}
-	if(user.status === 500) {
-		//Display error message
-	}
+		try {
+			let user = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/users`, userObj);
+			
+			if (user.status === 201) {
+				setMessage('User Registered successfully');
+				navigate('/users');
+			}
+		} catch (error) {
+			console.log(error);
+			setMessage(error?.response?.data?.message[0]);
+		}
   }
 
-  //onClick List Users
   const listUsers = ()=>{
-	//Navigate to users component
+		navigate('/users');
   }
 
   return (
@@ -43,11 +48,11 @@ function UserRegistration() {
 					</div>
 					{/* Submit Button */}
 
-					<button type="submit" className="btn btn-success mt-3">Submit</button>
-		
+					<button type="submit" className="btn btn-success mt-3">Submit</button> <br></br>
+					{message && <p1>{message}</p1>}
 				</form>
 		</div>
-		<div className="mt-3 text-end">
+		<div className="mt-3">
 			<button type="submit" className="btn btn-warning mt-2" onClick={listUsers}>List Users</button>
 		</div>			
 	</div>
