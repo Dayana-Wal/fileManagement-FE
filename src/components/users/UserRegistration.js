@@ -1,9 +1,10 @@
 import axios from "axios";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+
 function UserRegistration() {
-  const {register, handleSubmit} = useForm()
 	const [message, setMessage] = useState('');
 	const navigate = useNavigate()
   //handling onSubmit
@@ -25,38 +26,91 @@ function UserRegistration() {
 		navigate('/users');
   }
 
-  return (
-	<div className="container mt-5 w-25" >
-		<div className="row card p-2 pt-4 pb-4">
-			<h3> User Registration </h3>
-				{/* Form */}
-				<form onSubmit={handleSubmit(onSubmit)}> 
-					<div class="form-group mt-3 text-start" >
-						<label for="name" className="ps-1" >Name</label>
-						<input type="text" class="form-control" id="name"  placeholder="Enter your name" 
-						{...register('name')} required></input>
-					</div>
-					<div class="form-group mt-3 text-start">
-						<label for="Email" className="ps-1">Email</label>
-						<input type="email" class="form-control" id="email"  placeholder="Enter your Email"
-						{...register('email')} required></input>
-					</div>
-					<div class="form-group mt-3 text-start">
-						<label for="phoneNumber" className="ps-1">Phone number</label>
-						<input type="tel" class="form-control" id="phoneNumber"  placeholder="Enter your phone number"
-						{...register('phoneNumber')}></input>
-					</div>
-					{/* Submit Button */}
-
-					<button type="submit" className="btn btn-success mt-3">Submit</button> <br></br>
-					{message && <p1>{message}</p1>}
-				</form>
-		</div>
-		<div className="mt-3">
-			<button type="submit" className="btn btn-warning mt-2" onClick={listUsers}>List Users</button>
-		</div>			
+return (
+	<div className="container mt-5 w-25">
+	  <div className="row card p-2 pt-4 pb-4">
+		<h3>User Registration</h3>
+		{/* Form */}
+		<Formik
+		  initialValues={{
+			name: '',
+			email: '',
+			phoneNumber: ''
+		  }}
+		  validationSchema={Yup.object({
+			name: Yup.string()
+			  .required('Name is required')
+			  .min(3, 'Name must be at least 3 characters')
+			  .max(10, 'Name must be at most 10 characters'),
+			email: Yup.string()
+			  .required('Email is required')
+			  .email('Invalid email address'),
+			phoneNumber: Yup.string()
+			  .required('PhoneNumber is required')
+			  .matches(/^\d{10}$/, 'PhoneNumber must be exactly 10 digits')
+		  })}
+		  onSubmit={onSubmit}
+		>
+		  {({ isSubmitting }) => (
+			<Form>
+			  <div className="form-group mt-3 text-start">
+				<label htmlFor="name" className="ps-1">Name</label>
+				<Field
+				  type="text"
+				  id="name"
+				  name="name"
+				  className="form-control"
+				  placeholder="Enter your name"
+				/>
+				<ErrorMessage name="name" className="text-danger" />
+			  </div>
+			  <div className="form-group mt-3 text-start">
+				<label htmlFor="email" className="ps-1">Email</label>
+				<Field
+				  type="email"
+				  id="email"
+				  name="email"
+				  className="form-control"
+				  placeholder="Enter your Email"
+				/>
+				<ErrorMessage name="email" className="text-danger" />
+			  </div>
+			  <div className="form-group mt-3 text-start">
+				<label htmlFor="phoneNumber" className="ps-1">Phone number</label>
+				<Field
+				  type="tel"
+				  id="phoneNumber"
+				  name="phoneNumber"
+				  className="form-control"
+				  placeholder="Enter your phone number"
+				/>
+				<ErrorMessage name="phoneNumber" className="text-danger" />
+			  </div>
+			  {/* Submit Button */}
+			  <button
+				type="submit"
+				className="btn btn-success mt-3"
+				disabled={isSubmitting}
+			  >
+				Submit
+			  </button>
+			  <br />
+			  {/* Display message if necessary */}
+			  {message && <p>{message}</p>}
+			</Form>
+		  )}
+		</Formik>
+	  </div>
+	  <div className="mt-3">
+		<button
+		  type="button"
+		  className="btn btn-warning mt-2"
+		  onClick={listUsers}
+		>
+		  List Users
+		</button>
+	  </div>
 	</div>
-  
   );
 }
 

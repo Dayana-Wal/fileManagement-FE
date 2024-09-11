@@ -60,7 +60,7 @@ function ListUsers() {
             <th className="p-3">Name</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Upload Files</th>
+            <th>Upload File</th>
             <th>List Files</th>
           </tr>
         <tbody>
@@ -71,7 +71,7 @@ function ListUsers() {
               <td>{user.phoneNumber}</td>
               <td>
               <label className="btn btn-primary custom-file-upload">
-                  Upload Files
+                  Upload File
                   <input
                     type="file"
                     style={{ display: 'none' }}

@@ -25,9 +25,11 @@ function ListFiles() {
     }
   }
 
-  const handleEditFile = async(fileId) => {
-    // TODO
-  }
+  const handleEditFile = (fileId, fileName) => {
+    navigate('/files/editFile', {
+      state: { fileId: fileId, fileName: fileName }
+    });
+  };
 
   const handleDeleteFile = async(fileId) =>{
     try{
@@ -46,6 +48,11 @@ function ListFiles() {
     }
   }
 
+  const handleDownloadFile = async(fileId) => {
+     //TODO
+     console.log(fileId)
+  }
+
   useEffect(() => {
     getFiles();
   },[])
@@ -59,22 +66,34 @@ function ListFiles() {
         <thead className="bg-dark">
           <tr>
             <th>File Name</th>
-            <th>Edit File</th>
+            <th>Targetted Storage</th>
+            <th>Open File</th>
             <th>Delete File</th>
+            <th>Download File</th>
           </tr>
         </thead>
         <tbody>
           {files?.map((file) => (
             <tr key={file._id}>
               <td>{file.fileName}</td>
+              <td>{file.targettedStorage}</td>
               <td>
-              <button className="btn btn-primary" onClick={()=> handleEditFile(file._id)}>
-                  Edit File
+              <button className="btn btn-primary"  onClick={() => handleEditFile(file._id, file.fileName)}>
+                  Open File
                 </button>
               </td>
               <td>
-                <button className="btn btn-secondary" onClick={()=> handleDeleteFile(file._id)}>
+                <button className="btn btn-danger" onClick={()=> handleDeleteFile(file._id)}>
                   Delete File
+                  <span style={{ marginLeft: '5px' }}></span>
+                  <i className="fas fa-trash-alt"></i>
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-warning" onClick={()=> handleDownloadFile(file._id)}>
+                Download File
+                <span style={{ marginLeft: '5px' }}></span>
+                <i className="fas fa-download"></i>
                 </button>
               </td>
             </tr>
@@ -82,7 +101,6 @@ function ListFiles() {
         </tbody>
       </table>
       }
-      
     </div>
   )
 }
