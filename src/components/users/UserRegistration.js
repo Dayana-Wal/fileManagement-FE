@@ -18,7 +18,7 @@ function UserRegistration() {
 			}
 		} catch (error) {
 			console.log(error);
-			setMessage(error?.response?.data?.message[0]);
+			alert(error?.response?.data?.message); 
 		}
   }
 
