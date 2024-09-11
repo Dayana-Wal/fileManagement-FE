@@ -26,9 +26,9 @@ function ListFiles() {
     }
   }
 
-  const handleEditFile = (fileId, fileName) => {
+  const handleEditFile = (fileId, userId) => {
     navigate('/files/editFile', {
-      state: { fileId: fileId, fileName: fileName }
+      state: { fileId: fileId, userId: userId }
     });
   };
 
@@ -91,7 +91,7 @@ function ListFiles() {
               <td>{file.fileName}</td>
               <td>{file.targettedStorage}</td>
               <td>
-              <button className="btn btn-primary"  onClick={() => handleEditFile(file._id, file.fileName)}>
+              <button className="btn btn-primary"  onClick={() => handleEditFile(file._id, userId)}>
                   Open File
                 </button>
               </td>

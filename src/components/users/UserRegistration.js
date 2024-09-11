@@ -7,7 +7,7 @@ import * as Yup from 'yup';
 function UserRegistration() {
 	const [message, setMessage] = useState('');
 	const navigate = useNavigate()
-  //handling onSubmit
+  //Handling onSubmit
   const onSubmit = async (userObj) => {
 		try {
 			let user = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/users`, userObj);

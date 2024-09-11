@@ -10,7 +10,7 @@ export function UploadFile({ show, onHide, userId }) {
 
 	const handleFileName = (e) => {
 		if (e.target.files.length > 0) {
-      setFileName(e.target.files[0].name); // Set the name of the selected file
+      		setFileName(e.target.files[0].name); 
 			setSelectedFile(e.target.files[0])
     }
 	}
@@ -18,10 +18,10 @@ export function UploadFile({ show, onHide, userId }) {
 	// Reset the file name when modal is closed
 	useEffect(() => {
 		if (!show) {
-			setFileName('No file chosen'); // Reset filename when modal is closed
-			setSelectedFile(null); // Reset selected file
+			setFileName('No file chosen');
+			setSelectedFile(null);
 		}
-	}, [show]); // Runs whenever 'show' changes
+	}, [show]); 
 	
 
 	//Calling upload API
@@ -74,7 +74,7 @@ export function UploadFile({ show, onHide, userId }) {
 				<select 
 				className="form-select" 
 				value={storageOption} 
-				onChange={(e) => setStorageOption(e.target.value)} // Update selected storage option
+				onChange={(e) => setStorageOption(e.target.value)}
 				>
 					<option value="">Select storage option</option>
 					<option value="LocalStorage">Local Storage</option>
