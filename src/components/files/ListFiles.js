@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {saveAs} from 'file-saver';
 
 function ListFiles() {
 
@@ -49,8 +50,20 @@ function ListFiles() {
   }
 
   const handleDownloadFile = async(fileId) => {
-     //TODO
-     console.log(fileId)
+    try{
+      const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/download/${fileId}`,{
+        responseType: 'blob'
+      });
+      if(response.status === 200) {
+        const contentDisposition = response.headers['content-disposition'];
+        const fileName = contentDisposition ? contentDisposition.split('filename=')[1].replace(/"/g, '') : 'downloaded-file';
+        saveAs(response.data, fileName);
+        alert('File Downloaded successfully!!');
+      }
+    } catch (error) {
+      alert('something went wrong!!')
+      console.log(error);
+    }
   }
 
   useEffect(() => {
