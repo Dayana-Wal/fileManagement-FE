@@ -1,4 +1,5 @@
 import './App.css';
+import EditFile from './components/files/EditFile';
 import ListFiles from './components/files/ListFiles';
 import ListUsers from './components/users/ListUsers';
 import UserRegistration from './components/users/UserRegistration';
@@ -17,6 +18,9 @@ function App() {
   },{
     path: '/files',
     element: <ListFiles/>,
+  }, {
+    path: '/files/editFile',
+    element: <EditFile/>
   }])
   return (
     <div className="App">

@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import UploadFile from "../upload-file/UploadFile";
+
 
 function ListUsers() {
 
   const [users, setUsers] = useState();
   const navigate = useNavigate()
+  const [ modalShow, setModalShow]  = useState(false)
+  const [ selectedUserId, setSelectedUserId ] = useState(null)
 
   const getAllUsers  = async () => {
     try{
@@ -18,29 +22,11 @@ function ListUsers() {
     }
   }
 
-  const handleFileChange = async (event, userId) => {
-    const files = event.target.files;
-    if (files.length > 0) {
-      console.log(`Selected file for user ${userId}:`, files[0]);
-      const formData = new FormData();
-      formData.append('file', files[0]);
-      formData.append('userId', userId);
-
-      try {
-        const response = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files`, formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        });
-        if(response.status === 201) {
-          alert('File uploaded successfully!');
-        }
-      } catch (error) {
-        alert('Error while uploading!!'); 
-        console.error('Error uploading file:', error);
-      }
-    }
-  };
+  const handleUploadClick = (userId) =>{
+    setSelectedUserId(userId)
+    setModalShow(true)
+  }
+  
 
   const handleListFiles = (userId, userName) => {
     console.log(`List files for user: ${userId}`);
@@ -60,7 +46,7 @@ function ListUsers() {
             <th className="p-3">Name</th>
             <th>Email</th>
             <th>Phone Number</th>
-            <th>Upload Files</th>
+            <th>Upload File</th>
             <th>List Files</th>
           </tr>
         <tbody>
@@ -71,11 +57,10 @@ function ListUsers() {
               <td>{user.phoneNumber}</td>
               <td>
               <label className="btn btn-primary custom-file-upload">
-                  Upload Files
+                  Upload File
                   <input
-                    type="file"
                     style={{ display: 'none' }}
-                    onChange={(e) => handleFileChange(e, user._id)}
+                    onClick={() => handleUploadClick(user._id)}
                   />
                 </label>
               </td>
@@ -87,9 +72,13 @@ function ListUsers() {
             </tr>
           ))}
         </tbody>
-      </table>
+        </table>
       }
-      
+      <UploadFile 
+      show = {modalShow} 
+      onHide = {()=>setModalShow(false)}
+       userId = {selectedUserId}
+      />
     </div>
   )
 }

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import {saveAs} from 'file-saver';
 
 function ListFiles() {
 
@@ -21,13 +22,15 @@ function ListFiles() {
         setFiles(response?.data)
       }
     } catch(error) {
-      console.error('something went wrong!');
+      console.error('something went wrong!',error);
     }
   }
 
-  const handleEditFile = async(fileId) => {
-    // TODO
-  }
+  const handleEditFile = (fileId, userId) => {
+    navigate('/files/editFile', {
+      state: { fileId: fileId, userId: userId }
+    });
+  };
 
   const handleDeleteFile = async(fileId) =>{
     try{
@@ -46,6 +49,23 @@ function ListFiles() {
     }
   }
 
+  const handleDownloadFile = async(fileId) => {
+    try{
+      const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/download/${fileId}`,{
+        responseType: 'blob'
+      });
+      if(response.status === 200) {
+        const contentDisposition = response.headers['content-disposition'];
+        const fileName = contentDisposition ? contentDisposition.split('filename=')[1].replace(/"/g, '') : 'downloaded-file';
+        saveAs(response.data, fileName);
+        alert('File Downloaded successfully!!');
+      }
+    } catch (error) {
+      alert('something went wrong!!')
+      console.log(error);
+    }
+  }
+
   useEffect(() => {
     getFiles();
   },[])
@@ -59,22 +79,34 @@ function ListFiles() {
         <thead className="bg-dark">
           <tr>
             <th>File Name</th>
-            <th>Edit File</th>
+            <th>Targetted Storage</th>
+            <th>Open File</th>
             <th>Delete File</th>
+            <th>Download File</th>
           </tr>
         </thead>
         <tbody>
           {files?.map((file) => (
             <tr key={file._id}>
               <td>{file.fileName}</td>
+              <td>{file.targettedStorage}</td>
               <td>
-              <button className="btn btn-primary" onClick={()=> handleEditFile(file._id)}>
-                  Edit File
+              <button className="btn btn-primary"  onClick={() => handleEditFile(file._id, userId)}>
+                  Open File
                 </button>
               </td>
               <td>
-                <button className="btn btn-secondary" onClick={()=> handleDeleteFile(file._id)}>
+                <button className="btn btn-danger" onClick={()=> handleDeleteFile(file._id)}>
                   Delete File
+                  <span style={{ marginLeft: '5px' }}></span>
+                  <i className="fas fa-trash-alt"></i>
+                </button>
+              </td>
+              <td>
+                <button className="btn btn-warning" onClick={()=> handleDownloadFile(file._id)}>
+                Download File
+                <span style={{ marginLeft: '5px' }}></span>
+                <i className="fas fa-download"></i>
                 </button>
               </td>
             </tr>
@@ -82,7 +114,6 @@ function ListFiles() {
         </tbody>
       </table>
       }
-      
     </div>
   )
 }
