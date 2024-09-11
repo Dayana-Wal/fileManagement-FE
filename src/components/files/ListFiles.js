@@ -22,7 +22,7 @@ function ListFiles() {
         setFiles(response?.data)
       }
     } catch(error) {
-      console.error('something went wrong!');
+      console.error('something went wrong!',error);
     }
   }
 
