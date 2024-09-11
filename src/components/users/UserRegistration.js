@@ -41,7 +41,7 @@ return (
 			name: Yup.string()
 			  .required('Name is required')
 			  .min(3, 'Name must be at least 3 characters')
-			  .max(10, 'Name must be at most 10 characters'),
+			  .max(20, 'Name must be at most 20 characters'),
 			email: Yup.string()
 			  .required('Email is required')
 			  .email('Invalid email address'),

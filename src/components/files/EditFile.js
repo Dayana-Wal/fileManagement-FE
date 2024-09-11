@@ -10,23 +10,23 @@ function EditFile() {
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
+  const fetchFileContent = async () => {
+    try {
+      const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${fileId}`, {
+        params: { userId }
+      });
+      if (response.status === 200) {
+        setContent(response.data);
+      }
+    } catch (error) {
+      console.error('Error fetching file content', error);
+    }
+  };
+
   // Fetch the file content using fileId
   useEffect(() => {
-    const fetchFileContent = async () => {
-      try {
-        const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${fileId}`, {
-          params: { userId }
-        });
-        if (response.status === 200) {
-          setContent(response.data);
-        }
-      } catch (error) {
-        console.error('Error fetching file content', error);
-      }
-    };
-
     fetchFileContent();
-  }, [fileId, userId]);
+  }, []);
 
   // Enable editing mode when Edit button is clicked
   const handleEditClick = () => {
