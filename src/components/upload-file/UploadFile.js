@@ -40,7 +40,8 @@ export function UploadFile({ show, onHide, userId }) {
 		formData.append('targettedStorage', storageOption)
 
 		try {
-			const response = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files`, formData, {
+			let aws = storageOption === 'Aws' ? 'Aws' : '';
+			const response = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${aws}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
 				},
