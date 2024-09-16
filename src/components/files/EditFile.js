@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { Button, Container, Row, Col, Form } from 'react-bootstrap';
+import { Button, Container, Row, Col, Form, Spinner } from 'react-bootstrap';
 
 function EditFile() {
   const location = useLocation();
@@ -9,6 +9,7 @@ function EditFile() {
   const { fileId, userId } = location.state;
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const fetchFileContent = async () => {
     try {
@@ -20,6 +21,8 @@ function EditFile() {
       }
     } catch (error) {
       console.error('Error fetching file content', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,6 +68,12 @@ return (
       </Row>
       <Row className="flex-fill position-relative">
         <Col xs={12} md={10} lg={8} className="mx-auto">
+        {loading ? (
+            <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+              <Spinner animation="border" />
+            </div>
+          ) : (
+          <>
           <Form.Control
             as="textarea"
             value={content}
@@ -82,6 +91,8 @@ return (
                 Save
               </Button>
             </div>
+          )}
+          </>
           )}
         </Col>
       </Row>
