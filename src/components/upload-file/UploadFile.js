@@ -40,7 +40,7 @@ export function UploadFile({ show, onHide, userId }) {
 		formData.append('targettedStorage', storageOption)
 
 		try {
-			let aws = storageOption === 'Aws' ? 'Aws' : '';
+			let aws = storageOption === 'AWS' ? 'Aws' : '';
 			const response = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${aws}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -78,9 +78,9 @@ export function UploadFile({ show, onHide, userId }) {
 				onChange={(e) => setStorageOption(e.target.value)}
 				>
 					<option value="">Select storage option</option>
-					<option value="LocalStorage">Local Storage</option>
-					<option value="Aws">AWS S3</option>
-					<option value="Azure">Azure Storage</option>
+					<option value="LOCALSTORAGE">Local Storage</option>
+					<option value="AWS">AWS S3</option>
+					<option value="AZURE">Azure Storage</option>
 				</select>
       </div>
 			<div>
