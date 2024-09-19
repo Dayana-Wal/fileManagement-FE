@@ -74,6 +74,12 @@ function ListFiles() {
     }
   }
 
+  const handleViewThumbnails = (fileId) => {
+    navigate('/files/thumbnails', {
+      state: { fileId: fileId }
+    });
+  };
+
   useEffect(() => {
     getFiles();
   },[])
@@ -107,7 +113,8 @@ function ListFiles() {
                         <li className="list-group-item" onClick={() => handleDownloadFile(file._id)}>Download</li>
                         <li className="list-group-item" onClick={() => handleDeleteFile(file._id)}>Delete</li>
                         {console.log(imageExtensions.includes(file.fileName.split('.').pop().toLowerCase()))}
-                        {imageExtensions.includes(file.fileName.split('.').pop().toLowerCase())&&  <li className="list-group-item" >View thumbnails</li>}
+                        {imageExtensions.includes(file.fileName.split('.').pop().toLowerCase())&&  <li className="list-group-item" onClick={() => handleViewThumbnails(file._id)}>View thumbnails</li>
+                      }
                       </ul>
                     }
                   </td>
