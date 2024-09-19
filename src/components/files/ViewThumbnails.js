@@ -32,15 +32,15 @@ function ViewThumbnails() {
             {loading ? (
                 <Spinner animation="border" variant="primary" />
             ) : (
-                <div className='row'>
+                <div className='container d-flex'>
                     <div className="thumbnail-card">
-                        <img src={thumbnails[0]}  alt = "small-imag" className="thumbnail-img" ></img>
+                        <img src={thumbnails[0]}  alt = "small-imag" className="thumbnail-img" />
                     </div>
                     <div className="thumbnail-card">
-                        <img src={thumbnails[1]}  alt = "medium-imag" className="thumbnail-img"></img>
+                        <img src={thumbnails[1]}  alt = "medium-imag" className="thumbnail-img" />
                     </div>
                     <div className="thumbnail-card">
-                        <img src={thumbnails[2]}  alt = "large-imag" className="thumbnail-img"></img>
+                        <img src={thumbnails[2]}  alt = "large-imag" className="thumbnail-img" />
                     </div>
                 </div>
                     
