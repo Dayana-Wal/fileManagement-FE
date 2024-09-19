@@ -1,9 +1,11 @@
+
 import axios from "axios";
+import './UserRegistration.css'
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import './UserRegistration.css'
+
 
 function UserRegistration() {
 	const [message, setMessage] = useState('');
@@ -91,7 +93,7 @@ return (
 					{/* List users Button */}
 					<button
 						type="submit"
-						className="btn btn-secondary w-75 me-1 listUsers-btn"
+						className="btn w-75 me-1 listUsers-btn"
 						disabled={isSubmitting}
 						onClick={listUsers}
 					>
@@ -100,7 +102,7 @@ return (
 					{/* Register Button */}
 					<button
 						type="submit"
-						className="btn btn-success w-75 ms-1 register-btn"
+						className="btn w-75 ms-1 register-btn"
 						disabled={isSubmitting}
 					>
 						Register

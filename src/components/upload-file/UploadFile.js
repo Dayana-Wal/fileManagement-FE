@@ -85,7 +85,7 @@ export function UploadFile({ show, onHide, userId }) {
 				</select>
       </div>
 			<div>
-				<label className="btn btn-primary custom-file-upload mt-4 select-file">
+				<label className="btn custom-file-upload mt-4 select-file">
 						Select File
 						<input
 							type="file"

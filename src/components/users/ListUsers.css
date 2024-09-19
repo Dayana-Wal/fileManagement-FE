@@ -14,30 +14,30 @@
     transition: background-color 0.3s ease, color 0.3s ease;
   }
   
-  .list-file-btn {
+.btn.list-file-btn {
     background-color: #355C7D; 
     color: white; 
   }
   
-  .upload-btn {
+.btn.upload-btn {
     background-color: #355C7D;
     color: white;
   }
 
-  .list-file-btn:hover {
+.btn.list-file-btn:hover {
    background-color: #355C7D; 
     color: white; 
   }
 
-  .upload-btn:hover {
+.btn.upload-btn:hover {
     background-color: #355C7D; 
      color: white; 
    }
 
-   .list-file-btn:active {
+.btn.list-file-btn:active {
     background-color: #004085; 
   }
-  .upload-btn:active {
+.btn.upload-btn:active {
     background-color: #004085; 
   }
 
