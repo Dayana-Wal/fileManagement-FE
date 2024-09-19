@@ -13,6 +13,7 @@ function ListFiles() {
   const userId = location.state?.userId || {};
   const userName = location.state?.userName || {};
   const navigate = useNavigate();
+  const imageExtensions = ['png', 'jpg', 'jpeg']
 
   const toggleMenu = (fileId) => {
     setFileId((prevId)=> prevId === fileId ? null : fileId)
@@ -105,6 +106,8 @@ function ListFiles() {
                         <li className="list-group-item" onClick={() => handleEditFile(file._id, userId)}>Open</li>
                         <li className="list-group-item" onClick={() => handleDownloadFile(file._id)}>Download</li>
                         <li className="list-group-item" onClick={() => handleDeleteFile(file._id)}>Delete</li>
+                        {console.log(imageExtensions.includes(file.fileName.split('.').pop().toLowerCase()))}
+                        {imageExtensions.includes(file.fileName.split('.').pop().toLowerCase())&&  <li className="list-group-item" >View thumbnails</li>}
                       </ul>
                     }
                   </td>

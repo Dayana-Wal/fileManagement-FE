@@ -29,7 +29,7 @@ function UserRegistration() {
 
 return (
 	<div class="d-flex justify-content-center align-items-center min-vh-100">
-		<div className="container row card p-2 pt-4 pb-4 register-box">
+		<div className="container w-25 row card p-2 pt-4 pb-4 register-box">
 			<h3>User Registration</h3>
 			{/* Form */}
 			<Formik
@@ -92,6 +92,7 @@ return (
 					<button
 						type="submit"
 						class="btn w-75 me-1 listUsers-btn"
+						disabled={isSubmitting}
 						onClick={listUsers}
 					>
 						List users

@@ -8,8 +8,10 @@ function EditFile() {
   const navigate = useNavigate();
   const { fileId, userId } = location.state;
   const [content, setContent] = useState('');
+  const [ extension, setExtension] = useState ('')
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const imageExtensions = ['png', 'jpg', 'jpeg']
 
   const fetchFileContent = async () => {
     try {
@@ -17,7 +19,17 @@ function EditFile() {
         params: { userId }
       });
       if (response.status === 200) {
-        setContent(response.data);
+        setExtension( response.data.fileName.split('.').pop())
+        console.log(response)
+        console.log('-----------------',extension, imageExtensions.includes(extension))
+        if(imageExtensions.includes(extension)){
+          const url = URL.createObjectURL(response.data);
+          setContent(url)
+        }
+        else{
+          setContent(response.data.content)
+        }
+
       }
     } catch (error) {
       console.error('Error fetching file content', error);
@@ -57,45 +69,47 @@ function EditFile() {
 
 return (
     <Container fluid className="p-4 d-flex flex-column" style={{ height: '100vh' }}>
-      <Row className="mb-3">
-        <Col className="d-flex justify-content-end">
-          {!isEditing && (
-            <Button variant="primary" onClick={handleEditClick}>
-              Edit
-            </Button>
-          )}
-        </Col>
-      </Row>
-      <Row className="flex-fill position-relative">
-        <Col xs={12} md={10} lg={8} className="mx-auto">
-        {loading ? (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
-              <Spinner animation="border" />
-            </div>
-          ) : (
-          <>
-          <Form.Control
-            as="textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={23}
-            style={{ width: '100%', boxSizing: 'border-box', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
-            disabled={!isEditing}
-          />
-          {isEditing && (
-            <div className="d-flex justify-content-end mt-3">
-              <Button
-                variant="primary"
-                onClick={handleSaveClick}
-                style={{ width: 'auto' }}>
-                Save
+      {
+        imageExtensions.includes(extension) 
+        ? <imag src= {content} alt="File content"></imag>
+        : <><Row className="mb-3">
+          <Col className="d-flex justify-content-end">
+            {!isEditing && (
+              <Button variant="primary" onClick={handleEditClick}>
+                Edit
               </Button>
-            </div>
-          )}
-          </>
-          )}
-        </Col>
-      </Row>
+            )}
+          </Col>
+        </Row><Row className="flex-fill position-relative">
+            <Col xs={12} md={10} lg={8} className="mx-auto">
+              {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+                  <Spinner animation="border" />
+                </div>
+              ) : (
+                <>
+                  <Form.Control
+                    as="textarea"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    rows={23}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
+                    disabled={!isEditing} />
+                  {isEditing && (
+                    <div className="d-flex justify-content-end mt-3">
+                      <Button
+                        variant="primary"
+                        onClick={handleSaveClick}
+                        style={{ width: 'auto' }}>
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </Col>
+          </Row></>
+      }
     </Container>
   );
 }
