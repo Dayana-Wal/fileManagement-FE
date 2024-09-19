@@ -1,25 +1,18 @@
+
 .thumbnail-card {
-    width: 300px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 400px;  
+    height: 200px; 
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     overflow: hidden;
-}
-
-.thumbnail-img {
-    object-fit: contain;   
-    transform: scale(1);  
-}
-
-.small-thumbnail {
-    transform: scale(0.5);
-}
-
-.medium-thumbnail {
-    transform: scale(0.7);
-}
-
-.large-thumbnail {
-    transform: scale(0.9);
-}
+    position: relative;
+    margin: 10px;
+  }
+  
+  
+  .thumbnail-img {
+    object-fit: cover; 
+    object-position: center; 
+  }
+  

@@ -32,45 +32,18 @@ function ViewThumbnails() {
             {loading ? (
                 <Spinner animation="border" variant="primary" />
             ) : (
-                <div>
-                    <Row className="d-flex justify-content-center">
-                        <Col xs="auto" className="mb-4">
-                            <Card className="thumbnail-card">
-                                <Card.Img
-                                    key={`small-${thumbnails[0]}`}
-                                    variant="top"
-                                    src={thumbnails[0]}
-                                    alt="Small Thumbnail"
-                                    className="small-thumbnail thumbnail-img"
-                                />
-                            </Card>
-                        </Col>
-                        <Col xs="auto" className="mb-4">
-                            <Card className="thumbnail-card">
-                                <Card.Img
-                                    key={`medium-${thumbnails[1]}`}
-                                    variant="top"
-                                    src={thumbnails[1]}
-                                    alt="Medium Thumbnail"
-                                    className="medium-thumbnail thumbnail-img"
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
-                    <Row className="d-flex justify-content-center">
-                        <Col xs="auto" className="mb-4">
-                            <Card className="thumbnail-card">
-                                <Card.Img
-                                    key={`large-${thumbnails[2]}`}
-                                    variant="top"
-                                    src={thumbnails[2]}
-                                    alt="Large Thumbnail"
-                                    className="large-thumbnail thumbnail-img"
-                                />
-                            </Card>
-                        </Col>
-                    </Row>
+                <div className='row'>
+                    <div className="thumbnail-card">
+                        <img src={thumbnails[0]}  alt = "small-imag" className="thumbnail-img" ></img>
+                    </div>
+                    <div className="thumbnail-card">
+                        <img src={thumbnails[1]}  alt = "medium-imag" className="thumbnail-img"></img>
+                    </div>
+                    <div className="thumbnail-card">
+                        <img src={thumbnails[2]}  alt = "large-imag" className="thumbnail-img"></img>
+                    </div>
                 </div>
+                    
             )}
         </Container>
     );

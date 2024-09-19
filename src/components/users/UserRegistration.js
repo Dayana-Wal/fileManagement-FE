@@ -91,7 +91,7 @@ return (
 					{/* List users Button */}
 					<button
 						type="submit"
-						class="btn w-75 me-1 listUsers-btn"
+						className="btn btn-secondary w-75 me-1 listUsers-btn"
 						disabled={isSubmitting}
 						onClick={listUsers}
 					>
@@ -100,7 +100,7 @@ return (
 					{/* Register Button */}
 					<button
 						type="submit"
-						class="btn w-75 ms-1 register-btn"
+						className="btn btn-success w-75 ms-1 register-btn"
 						disabled={isSubmitting}
 					>
 						Register
