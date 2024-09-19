@@ -1,9 +1,9 @@
+import "./ListFiles.css"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {saveAs} from 'file-saver';
 import { Table } from "react-bootstrap";
-import "./ListFiles.css"
 
 function ListFiles() {
 
@@ -91,13 +91,13 @@ function ListFiles() {
         files?.length === 0 ? <p>No Files Found</p> : 
         <div className="container row">
           {<Table striped bordered hover >
-            <thead className="bg-dark">
-              <tr>
-                <th>File Name</th>
+           
+              <tr class="table-header">
+                <th className="p-3">File Name</th>
                 <th>Targetted Storage</th>
                 <th>Options</th>
               </tr>
-            </thead>
+
             <tbody>
               {files?.map((file) => (
                 <tr key={file._id}>

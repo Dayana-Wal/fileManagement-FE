@@ -1,12 +1,16 @@
+.files-table-header{
+  background-color: #6C5B7B;
+  color: white
+}
+
 .options {
-    /* Adjust these values to fit your design needs */
     width: 170px;
     background-color: white;
     border: 1px solid #ccc;
-    z-index: 1000; /* Ensure it appears above other content */
-    top: 0; /* Adjust if needed */
-    left: 60%; /* Positions the dropdown to the right of the button */
-    margin-left: 1px; /* Space between the button and dropdown */
+    z-index: 1000;
+    top: 0;
+    left: 60%;
+    margin-left: 1px; 
     justify-content: start;
   }
   
@@ -16,6 +20,7 @@
   }
   
   .list-group-item:hover {
-    background-color: #A1DD70; /* Highlight on hover */
+    background-color: #cfe1f0;
   }
+
   

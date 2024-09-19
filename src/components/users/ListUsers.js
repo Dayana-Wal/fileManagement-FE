@@ -1,9 +1,10 @@
+import './ListUsers.css'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadFile from "../upload-file/UploadFile";
 import { Table } from "react-bootstrap";
-import './ListUsers.css'
+
 
 
 function ListUsers() {
@@ -40,7 +41,7 @@ function ListUsers() {
   },[])
   return (
     <div className="container mt-5">
-      <h2 className="text-center mb-4">Users list </h2>
+      <h2 className="text-center mb-4">List Of Users</h2>
       {
         users?.length === 0 ? <p>Please register any user , No users found registered</p> : 
         <Table striped bordered hover >
@@ -58,16 +59,14 @@ function ListUsers() {
                 <td>{user.email}</td>
                 <td>{user.phoneNumber}</td>
                 <td>
-                <label className="btn btn-primary custom-file-upload">
-                    Upload File
-                    <input
-                      style={{ display: 'none' }}
-                      onClick={() => handleUploadClick(user._id)}
-                    />
-                  </label>
+                  <button
+                    onClick={() => handleUploadClick(user._id)}
+                    className="btn upload-btn"
+                  > Upload 
+                  </button>
                 </td>
                 <td>
-                  <button className="btn btn-secondary" onClick={() => handleListFiles(user._id, user.name)}>
+                  <button className="btn list-file-btn" onClick={() => handleListFiles(user._id, user.name)}>
                     List Files
                   </button>
                 </td>

@@ -1,3 +1,4 @@
+import './UploadFile.css'
 import axios from "axios";
 import { Modal,Button } from "react-bootstrap"
 import { useState } from "react";
@@ -84,7 +85,7 @@ export function UploadFile({ show, onHide, userId }) {
 				</select>
       </div>
 			<div>
-				<label className="btn btn-primary custom-file-upload mt-4">
+				<label className="btn btn-primary custom-file-upload mt-4 select-file">
 						Select File
 						<input
 							type="file"
@@ -99,7 +100,7 @@ export function UploadFile({ show, onHide, userId }) {
 
 		</Modal.Body>
 		<Modal.Footer>
-				<Button className='btn btn-success' onClick={(e) => handleFileChange(userId)}>Upload</Button>
+				<Button className='btn uploading-btn' onClick={(e) => handleFileChange(userId)}>Upload</Button>
 		</Modal.Footer>
 		</Modal>
 	)

@@ -1,4 +1,45 @@
 .table-header {
-    background-color: #A1DD70;
-    color: black
+    background-color: #6C5B7B;
+    color: white
 }
+
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .list-file-btn {
+    background-color: #355C7D; 
+    color: white; 
+  }
+  
+  .upload-btn {
+    background-color: #355C7D;
+    color: white;
+  }
+
+  .list-file-btn:hover {
+   background-color: #355C7D; 
+    color: white; 
+  }
+
+  .upload-btn:hover {
+    background-color: #355C7D; 
+     color: white; 
+   }
+
+   .list-file-btn:active {
+    background-color: #004085; 
+  }
+  .upload-btn:active {
+    background-color: #004085; 
+  }
+
+  
+  

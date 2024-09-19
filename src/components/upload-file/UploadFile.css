@@ -1,0 +1,17 @@
+.uploading-btn {
+    background-color: #827191;
+    color: white;
+  }
+  .uploading-btn:hover {
+    background-color: #604975;
+    color: white;
+  }
+
+.select-file{
+    background-color: #5a9fdc;
+    color: white;
+}
+.select-file:hover{
+    background-color: #336fa4;
+    color: white;
+}
