@@ -34,9 +34,9 @@ function ListFiles() {
     }
   }
 
-  const handleEditFile = (fileId, userId) => {
-    navigate('/files/editFile', {
-      state: { fileId: fileId, userId: userId }
+  const handleEditFile = (fileId, userId, fileName) => {
+    navigate('/files/openFile', {
+      state: { fileId: fileId, userId: userId, fileName: fileName }
     });
   };
 
@@ -103,7 +103,7 @@ function ListFiles() {
                     </button>
                     {fileId === file._id && 
                       <ul className="list-group list-group-flush position-absolute options">
-                        <li className="list-group-item" onClick={() => handleEditFile(file._id, userId)}>Open</li>
+                        <li className="list-group-item" onClick={() => handleEditFile(file._id, userId, file.fileName)}>Open</li>
                         <li className="list-group-item" onClick={() => handleDownloadFile(file._id)}>Download</li>
                         <li className="list-group-item" onClick={() => handleDeleteFile(file._id)}>Delete</li>
                         {console.log(imageExtensions.includes(file.fileName.split('.').pop().toLowerCase()))}

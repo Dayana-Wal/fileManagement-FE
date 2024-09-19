@@ -6,32 +6,29 @@ import { Button, Container, Row, Col, Form, Spinner } from 'react-bootstrap';
 function EditFile() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { fileId, userId } = location.state;
+  const { fileId, userId, fileName } = location.state;
   const [content, setContent] = useState('');
-  const [ extension, setExtension] = useState ('')
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const imageExtensions = ['png', 'jpg', 'jpeg']
+  const [extension, setExtension] = useState(null)
 
   const fetchFileContent = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${fileId}`, {
-        params: { userId }
-      });
-      if (response.status === 200) {
-        setExtension( response.data.fileName.split('.').pop())
-        console.log(response)
-        console.log('-----------------',extension, imageExtensions.includes(extension))
-        if(imageExtensions.includes(extension)){
-          const url = URL.createObjectURL(response.data);
-          setContent(url)
-        }
-        else{
-          setContent(response.data.content)
-        }
-
+      const extension = fileName.split('.').pop()
+      let url = `${process.env.REACT_APP_FILE_MANAGEMENT_API}/files`
+      setExtension(extension)
+      if(imageExtensions.includes(extension)){
+          url =`${url}/images`
       }
-    } catch (error) {
+      const response = await axios.get(`${url}/${fileId}`, {
+          params: { userId }
+      });
+      console.log(url,response.data)
+      if (response.status === 200) {
+        setContent(response.data)
+        }
+    }catch (error) {
       console.error('Error fetching file content', error);
     } finally {
       setLoading(false);
@@ -71,7 +68,7 @@ return (
     <Container fluid className="p-4 d-flex flex-column" style={{ height: '100vh' }}>
       {
         imageExtensions.includes(extension) 
-        ? <imag src= {content} alt="File content"></imag>
+        ? <img src= {content} alt="File content"></img>
         : <><Row className="mb-3">
           <Col className="d-flex justify-content-end">
             {!isEditing && (

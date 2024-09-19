@@ -19,7 +19,7 @@ function App() {
     path: '/files',
     element: <ListFiles/>,
   }, {
-    path: '/files/editFile',
+    path: '/files/openFile',
     element: <EditFile/>
   }])
   return (
