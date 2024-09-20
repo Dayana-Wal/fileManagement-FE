@@ -1,0 +1,26 @@
+.files-table-header{
+  background-color: #6C5B7B;
+  color: white
+}
+
+.options {
+    width: 170px;
+    background-color: white;
+    border: 1px solid #ccc;
+    z-index: 1000;
+    top: 0;
+    left: 60%;
+    margin-left: 1px; 
+    justify-content: start;
+  }
+  
+  .list-group-item {
+    cursor: pointer;
+    text-align: left;
+  }
+  
+  .list-group-item:hover {
+    background-color: #cfe1f0;
+  }
+
+  

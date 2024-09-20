@@ -1,6 +1,7 @@
 import './App.css';
 import EditFile from './components/files/EditFile';
 import ListFiles from './components/files/ListFiles';
+import ViewThumbnails from './components/files/ViewThumbnails';
 import ListUsers from './components/users/ListUsers';
 import UserRegistration from './components/users/UserRegistration';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -19,8 +20,11 @@ function App() {
     path: '/files',
     element: <ListFiles/>,
   }, {
-    path: '/files/editFile',
+    path: '/files/openFile',
     element: <EditFile/>
+  }, {
+    path: '/files/thumbnails',
+    element: <ViewThumbnails/>
   }])
   return (
     <div className="App">

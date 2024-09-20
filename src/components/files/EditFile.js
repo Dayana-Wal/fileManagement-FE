@@ -6,20 +6,29 @@ import { Button, Container, Row, Col, Form, Spinner } from 'react-bootstrap';
 function EditFile() {
   const location = useLocation();
   const navigate = useNavigate();
-  const { fileId, userId } = location.state;
+  const { fileId, userId, fileName } = location.state;
   const [content, setContent] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const imageExtensions = ['png', 'jpg', 'jpeg']
+  const [extension, setExtension] = useState(null)
 
   const fetchFileContent = async () => {
     try {
-      const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${fileId}`, {
-        params: { userId }
-      });
-      if (response.status === 200) {
-        setContent(response.data);
+      const extension = fileName.split('.').pop()
+      let url = `${process.env.REACT_APP_FILE_MANAGEMENT_API}/files`
+      setExtension(extension)
+      if(imageExtensions.includes(extension)){
+          url =`${url}/images`
       }
-    } catch (error) {
+      const response = await axios.get(`${url}/${fileId}`, {
+          params: { userId }
+      });
+      console.log(url,response.data)
+      if (response.status === 200) {
+        setContent(response.data)
+        }
+    }catch (error) {
       console.error('Error fetching file content', error);
     } finally {
       setLoading(false);
@@ -57,45 +66,47 @@ function EditFile() {
 
 return (
     <Container fluid className="p-4 d-flex flex-column" style={{ height: '100vh' }}>
-      <Row className="mb-3">
-        <Col className="d-flex justify-content-end">
-          {!isEditing && (
-            <Button variant="primary" onClick={handleEditClick}>
-              Edit
-            </Button>
-          )}
-        </Col>
-      </Row>
-      <Row className="flex-fill position-relative">
-        <Col xs={12} md={10} lg={8} className="mx-auto">
-        {loading ? (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
-              <Spinner animation="border" />
-            </div>
-          ) : (
-          <>
-          <Form.Control
-            as="textarea"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            rows={23}
-            style={{ width: '100%', boxSizing: 'border-box', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
-            disabled={!isEditing}
-          />
-          {isEditing && (
-            <div className="d-flex justify-content-end mt-3">
-              <Button
-                variant="primary"
-                onClick={handleSaveClick}
-                style={{ width: 'auto' }}>
-                Save
+      {
+        imageExtensions.includes(extension) 
+        ? <img src= {content} alt="File content"></img>
+        : <><Row className="mb-3">
+          <Col className="d-flex justify-content-end">
+            {!isEditing && (
+              <Button variant="primary" onClick={handleEditClick}>
+                Edit
               </Button>
-            </div>
-          )}
-          </>
-          )}
-        </Col>
-      </Row>
+            )}
+          </Col>
+        </Row><Row className="flex-fill position-relative">
+            <Col xs={12} md={10} lg={8} className="mx-auto">
+              {loading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '100%' }}>
+                  <Spinner animation="border" />
+                </div>
+              ) : (
+                <>
+                  <Form.Control
+                    as="textarea"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                    rows={23}
+                    style={{ width: '100%', boxSizing: 'border-box', padding: '10px', border: '1px solid #ced4da', borderRadius: '4px' }}
+                    disabled={!isEditing} />
+                  {isEditing && (
+                    <div className="d-flex justify-content-end mt-3">
+                      <Button
+                        variant="primary"
+                        onClick={handleSaveClick}
+                        style={{ width: 'auto' }}>
+                        Save
+                      </Button>
+                    </div>
+                  )}
+                </>
+              )}
+            </Col>
+          </Row></>
+      }
     </Container>
   );
 }

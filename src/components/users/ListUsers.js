@@ -1,7 +1,10 @@
+import './ListUsers.css'
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import UploadFile from "../upload-file/UploadFile";
+import { Table } from "react-bootstrap";
+
 
 
 function ListUsers() {
@@ -38,41 +41,39 @@ function ListUsers() {
   },[])
   return (
     <div className="container mt-5">
-      <h1 className="text-center mb-4">All Users</h1>
+      <h2 className="text-center mb-4">List Of Users</h2>
       {
-        users?.length === 0 ? <p>No Users Found</p> : 
-        <table className="table table-striped table-hover table-bordered">
-          <tr className="bg-success text-white">
+        users?.length === 0 ? <p>Please register any user , No users found registered</p> : 
+        <Table striped bordered hover >
+          <tr class="table-header">
             <th className="p-3">Name</th>
             <th>Email</th>
             <th>Phone Number</th>
             <th>Upload File</th>
             <th>List Files</th>
           </tr>
-        <tbody>
-          {users?.map((user) => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.phoneNumber}</td>
-              <td>
-              <label className="btn btn-primary custom-file-upload">
-                  Upload File
-                  <input
-                    style={{ display: 'none' }}
+          <tbody>
+            {users?.map((user) => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.phoneNumber}</td>
+                <td>
+                  <button
                     onClick={() => handleUploadClick(user._id)}
-                  />
-                </label>
-              </td>
-              <td>
-                <button className="btn btn-secondary" onClick={() => handleListFiles(user._id, user.name)}>
-                  List Files
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-        </table>
+                    className="btn upload-btn"
+                  > Upload 
+                  </button>
+                </td>
+                <td>
+                  <button className="btn list-file-btn" onClick={() => handleListFiles(user._id, user.name)}>
+                    List Files
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
       }
       <UploadFile 
       show = {modalShow} 

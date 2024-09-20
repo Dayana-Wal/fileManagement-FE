@@ -1,3 +1,4 @@
+import './UploadFile.css'
 import axios from "axios";
 import { Modal,Button } from "react-bootstrap"
 import { useState } from "react";
@@ -40,7 +41,7 @@ export function UploadFile({ show, onHide, userId }) {
 		formData.append('targettedStorage', storageOption)
 
 		try {
-			let aws = storageOption === 'Aws' ? 'Aws' : '';
+			let aws = storageOption === 'AWS' ? 'Aws' : '';
 			const response = await axios.post(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${aws}`, formData, {
 				headers: {
 					'Content-Type': 'multipart/form-data',
@@ -78,13 +79,13 @@ export function UploadFile({ show, onHide, userId }) {
 				onChange={(e) => setStorageOption(e.target.value)}
 				>
 					<option value="">Select storage option</option>
-					<option value="LocalStorage">Local Storage</option>
-					<option value="Aws">AWS S3</option>
-					<option value="Azure">Azure Storage</option>
+					<option value="LOCALSTORAGE">Local Storage</option>
+					<option value="AWS">AWS S3</option>
+					<option value="AZURE">Azure Storage</option>
 				</select>
       </div>
 			<div>
-				<label className="btn btn-primary custom-file-upload mt-4">
+				<label className="btn custom-file-upload mt-4 select-file">
 						Select File
 						<input
 							type="file"
@@ -99,7 +100,7 @@ export function UploadFile({ show, onHide, userId }) {
 
 		</Modal.Body>
 		<Modal.Footer>
-				<Button className='btn btn-success' onClick={(e) => handleFileChange(userId)}>Upload</Button>
+				<Button className='btn uploading-btn' onClick={(e) => handleFileChange(userId)}>Upload</Button>
 		</Modal.Footer>
 		</Modal>
 	)
