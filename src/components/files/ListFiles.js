@@ -3,12 +3,13 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {saveAs} from 'file-saver';
-import { Table } from "react-bootstrap";
+import { Table, Spinner } from "react-bootstrap";
 
 function ListFiles() {
 
   const [files, setFiles] = useState();
   const [fileId, setFileId] = useState(false)
+  const [loading, setLoading] = useState(null);
   const location = useLocation();
   const userId = location.state?.userId || {};
   const userName = location.state?.userName || {};
@@ -41,6 +42,7 @@ function ListFiles() {
   };
 
   const handleDeleteFile = async(fileId) =>{
+    setLoading(fileId);
     try{
       const response = await axios.delete(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/${fileId}`, {
         params: {
@@ -54,10 +56,13 @@ function ListFiles() {
     } catch(error) {
       alert('Something went wrong');
       console.error('something went wrong!!');
+    } finally {
+      setLoading(null);
     }
   }
 
   const handleDownloadFile = async(fileId) => {
+    setLoading(fileId);
     try{
       const response = await axios.get(`${process.env.REACT_APP_FILE_MANAGEMENT_API}/files/download/${fileId}`,{
         responseType: 'blob'
@@ -71,6 +76,8 @@ function ListFiles() {
     } catch (error) {
       alert('something went wrong!!')
       console.log(error);
+    } finally {
+      setLoading(null);
     }
   }
 
@@ -85,7 +92,12 @@ function ListFiles() {
   },[])
 
   return(
-    <div className="container mt-5 w-75">
+    <div className="container mt-5 w-75 position-relative">
+      {loading && (
+        <div className="loader-overlay d-flex justify-content-center align-items-center">
+          <Spinner animation="border" role="status" />
+        </div>
+      )}
       <h1 className="text-center mb-4"> {userName} Files</h1>
       {
         files?.length === 0 ? <p>No Files Found</p> : 
