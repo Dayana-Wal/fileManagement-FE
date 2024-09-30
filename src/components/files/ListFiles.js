@@ -14,7 +14,6 @@ function ListFiles() {
   const userId = location.state?.userId || {};
   const userName = location.state?.userName || {};
   const navigate = useNavigate();
-  const imageExtensions = ['png', 'jpg', 'jpeg']
 
   const toggleMenu = (fileId) => {
     setFileId((prevId)=> prevId === fileId ? null : fileId)
@@ -35,9 +34,9 @@ function ListFiles() {
     }
   }
 
-  const handleEditFile = (fileId, userId, fileName) => {
+  const handleEditFile = (fileId, userId, fileName, fileType) => {
     navigate('/files/openFile', {
-      state: { fileId: fileId, userId: userId, fileName: fileName }
+      state: { fileId: fileId, userId: userId, fileName: fileName, fileType: fileType }
     });
   };
 
@@ -121,11 +120,10 @@ function ListFiles() {
                     </button>
                     {fileId === file._id && 
                       <ul className="list-group list-group-flush position-absolute options">
-                        <li className="list-group-item" onClick={() => handleEditFile(file._id, userId, file.fileName)}>Open</li>
+                        <li className="list-group-item" onClick={() => handleEditFile(file._id, userId, file.fileName, file.fileType)}>Open</li>
                         <li className="list-group-item" onClick={() => handleDownloadFile(file._id)}>Download</li>
                         <li className="list-group-item" onClick={() => handleDeleteFile(file._id)}>Delete</li>
-                        {console.log(imageExtensions.includes(file.fileName.split('.').pop().toLowerCase()))}
-                        {imageExtensions.includes(file.fileName.split('.').pop().toLowerCase())&&  <li className="list-group-item" onClick={() => handleViewThumbnails(file._id)}>View thumbnails</li>
+                        {file.fileType.split('/')[0] === 'image' &&  <li className="list-group-item" onClick={() => handleViewThumbnails(file._id)}>View thumbnails</li>
                       }
                       </ul>
                     }
