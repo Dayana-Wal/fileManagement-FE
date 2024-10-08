@@ -1,0 +1,45 @@
+.table-header {
+    background-color: #6C5B7B;
+    color: white
+}
+
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+.btn.list-file-btn {
+    background-color: #355C7D; 
+    color: white; 
+  }
+  
+.btn.upload-btn {
+    background-color: #355C7D;
+    color: white;
+  }
+
+.btn.list-file-btn:hover {
+   background-color: #355C7D; 
+    color: white; 
+  }
+
+.btn.upload-btn:hover {
+    background-color: #355C7D; 
+     color: white; 
+   }
+
+.btn.list-file-btn:active {
+    background-color: #004085; 
+  }
+.btn.upload-btn:active {
+    background-color: #004085; 
+  }
+
+  
+  

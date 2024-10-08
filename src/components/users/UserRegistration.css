@@ -1,0 +1,30 @@
+
+.btn.register-btn {
+    background-color: #6C5B7B;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: "pointer";
+    color: white
+}
+
+.btn.register-btn:hover {
+    transform: scale(1.05); 
+    background-color: #523869;
+    color: white
+}
+
+.btn.listUsers-btn {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: "pointer";
+    background-color:#355C7D;
+    color: white
+}
+
+.btn.listUsers-btn:hover {
+    transform: scale(1.05); 
+    background-color:#1a3e5e;
+    color: white
+}
